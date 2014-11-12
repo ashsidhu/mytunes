@@ -33,10 +33,10 @@ require([
     var app = new AppModel({library: library});
 
     // // build a view for the top level of the whole app
-    // var appView = new AppView({model: app});
+    var appView = new AppView({model: app});
 
     // // put the view onto the screen
-    // $('body').append(appView.render());
+    $('body').append(appView.render());
     window.library = library;
     window.app = app;
   }

@@ -1,30 +1,36 @@
-define(['backbone'], function () {
+define(['backbone',
+        'views/PlayerView',
+        'views/LibraryView',
+        'views/SongQueueView'], 
 
-  // AppView.js - Defines a backbone view class for the whole music app.
-  var AppView = Backbone.View.extend({
+  function (Backbone, PlayerView, LibraryView, SongQueueView) {
 
-    initialize: function(params){
-      this.playerView = new PlayerView({model: this.model.get('currentSong')});
-      this.libraryView = new LibraryView({collection: this.model.get('library')});
-      this.songQueueView = new SongQueueView({collection: this.model.get('songQueue')});
+    // AppView.js - Defines a backbone view class for the whole music app.
+    var AppView = Backbone.View.extend({
 
-      // change:currentSong - this is Backbone's way of allowing you to filter events to
-      // ONLY receive change events for the specific property, 'currentSong'
-      
-      // model is app model
-      this.model.on('change:currentSong', function(model){
-        this.playerView.setSong(model.get('currentSong'));
-      }, this);
-    },
+      initialize: function(params){
+        this.playerView = new PlayerView({model: this.model.get('currentSong')});
+        this.libraryView = new LibraryView({collection: this.model.get('library')});
+        this.songQueueView = new SongQueueView({collection: this.model.get('songQueue')});
 
-    render: function(){
-      return this.$el.html([
-        this.playerView.$el,
-        this.libraryView.$el
-      ]);
-    }
-  });
+        // change:currentSong - this is Backbone's way of allowing you to filter events to
+        // ONLY receive change events for the specific property, 'currentSong'
+        
+        // model is app model
+        this.model.on('change:currentSong', function(model){
+          this.playerView.setSong(model.get('currentSong'));
+        }, this);
+      },
 
-  return AppView;
+      render: function(){
+        return this.$el.html([
+          this.playerView.$el,
+          this.libraryView.$el
+        ]);
+      }
+    });
 
-});
+    return AppView;
+
+  }
+);
