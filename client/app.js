@@ -39,5 +39,6 @@ require([
     $('body').append(appView.render());
     window.library = library;
     window.app = app;
+    window.appView = appView;
   }
 );
