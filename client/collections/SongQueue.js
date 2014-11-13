@@ -8,6 +8,10 @@ define(['backbone', 'collections/Songs'], function (Backbone, Songs) {
 
     enqueue: function(song) {
       this.add(song);
+    },
+
+    dequeue: function(){
+      this.shift();
     }
 
   });

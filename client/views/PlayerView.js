@@ -31,7 +31,7 @@ define(['backbone'], function (Backbone) {
 
     ended: function(e) {
       console.log('current song ended');
-      this.model.trigger('ended');
+      this.model.ended();
     }
 
   });
