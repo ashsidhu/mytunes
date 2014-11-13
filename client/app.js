@@ -19,7 +19,7 @@ require.config({
 require([
   'jquery', 
   'underscore', 
-  'backbone', 
+  'backbone',
   'data/data.js',
   'collections/Songs',
   'models/AppModel',

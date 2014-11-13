@@ -1,13 +1,20 @@
 // App.js - Defines a backbone model class for the whole app.
 define(['backbone',
   'models/SongModel',
-  'collections/songQueue'], function (Backbone, SongModel, SongQueue) {
+  'collections/songQueue',
+  'lsUtil'], function (Backbone, SongModel, SongQueue, ls) {
 
     var AppModel = Backbone.Model.extend({
 
       initialize: function(params){
-        this.set('currentSong', new SongModel()); //set an empty song only for the first time
-        this.set('songQueue', new SongQueue());
+        var queueData = ls.read('songQueue') || [];
+        console.log(queueData);
+        debugger;
+        var currentSong = new SongModel();
+        var songQueue = new SongQueue(queueData);
+
+        this.set('currentSong', currentSong); //set an empty song only for the first time
+        this.set('songQueue', songQueue);
         
         // library passed in params
         this.get('library').on('play', this.playSong, this);
@@ -26,6 +33,7 @@ define(['backbone',
       playSong: function(song) {
           // set new current song
           this.set('currentSong', song);
+          ls.write('currentSong', song.attributes);
           console.log(this.get('songQueue').length, ' more songs including current one');
       },
 
