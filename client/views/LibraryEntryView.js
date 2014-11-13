@@ -8,9 +8,10 @@ define(['backbone'], function (Backbone) {
     template: _.template('<td>(<%= artist %>)</td><td><%= title %></td><td><button>Enqueue</button</td'),
 
     events: {
-      'click': function() {
-        this.model.play();
-      },
+      // remove direct playback
+      // 'click': function() {
+      //   this.model.play();
+      // },
       'click button': function(e){
         e.stopPropagation();
         this.model.enqueue();
