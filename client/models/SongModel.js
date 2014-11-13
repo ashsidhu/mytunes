@@ -10,7 +10,11 @@ define(['backbone', 'models/SongModel'], function (Backbone, SongModel) {
 
     enqueue: function() {
       this.trigger('enqueue', this);
-    }
+    },
+
+    ended: function() {
+      this.trigger('ended', this);
+    },
 
   });
 

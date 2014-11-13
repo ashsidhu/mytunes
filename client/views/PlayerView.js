@@ -10,7 +10,7 @@ define(['backbone'], function (Backbone) {
     events: {
       play: 'callback',
       pause: 'callback',
-      ended: 'playNextSong'
+      ended: 'ended'
     },
 
     initialize: function() {
@@ -29,9 +29,9 @@ define(['backbone'], function (Backbone) {
       console.log(e);
     },
 
-    playNextSong: function(e) {
+    ended: function(e) {
       console.log('current song ended');
-      Backbone.Events.trigger('playNextSong');
+      this.model.trigger('ended');
     }
 
   });
