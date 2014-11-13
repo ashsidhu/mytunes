@@ -18,9 +18,11 @@ define(['backbone',
         
         // model is app model
         this.model.on('change:currentSong', function(model){
+          console.log('now playing - ', model.get('currentSong').get('title'))
           this.playerView.setSong(model.get('currentSong'));
         }, this);
 
+        
       },
 
       render: function(){

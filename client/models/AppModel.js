@@ -17,6 +17,12 @@ define(['backbone',
           this.get('songQueue').enqueue(song);
         }, this);
 
+        Backbone.Events.on('playNextSong', function(){
+          console.log('play next song')
+          this.set('currentSong', (this.get('songQueue').shift()|| new SongModel()));
+        }, this);
+
+
       }
 
     });
