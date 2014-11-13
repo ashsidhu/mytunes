@@ -26,11 +26,11 @@ define(['backbone'], function (Backbone) {
     },
 
     callback: function(e) {
-      console.log(e);
+      // console.log(e);
     },
 
     ended: function(e) {
-      console.log('current song ended');
+      console.log('current song ended from view');
       this.model.ended();
     }
 

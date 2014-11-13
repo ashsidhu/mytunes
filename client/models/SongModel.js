@@ -13,8 +13,13 @@ define(['backbone', 'models/SongModel'], function (Backbone, SongModel) {
     },
 
     ended: function() {
+      console.log('stopped playing ', this.get('title'));
       this.trigger('ended', this);
     },
+
+    dequeue: function() {
+      this.trigger('dequeue', this);
+    }
 
   });
 

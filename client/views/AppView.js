@@ -22,12 +22,7 @@ define(['backbone',
         });
 
         // model is app model
-        this.model.on('change:currentSong', function(model){
-          console.log('now playing - ', model.get('currentSong').get('title'))
-          this.playerView.setSong(model.get('currentSong'));
-        }, this);
-
-        
+        this.model.on('change:currentSong', this.setSongInPlayer, this);
       },
 
       render: function(){
@@ -35,7 +30,12 @@ define(['backbone',
           this.playerView.$el,
           this.libraryView.$el
         ]);
-      }
+      },
+
+      setSongInPlayer: function(model){
+        console.log('now playing - ', model.get('currentSong').get('title'))
+        this.playerView.setSong(model.get('currentSong'));
+      },
     });
 
     return AppView;

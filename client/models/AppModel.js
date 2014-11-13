@@ -6,19 +6,25 @@ define(['backbone',
     var AppModel = Backbone.Model.extend({
 
       initialize: function(params){
-        this.playSong( new SongModel() );
+        this.set('currentSong', new SongModel()); //set an empty song only for the first time
         this.set('songQueue', new SongQueue());
         
+        // library passed in params
         this.get('library').on('play', this.playSong, this);
 
         this.get('library').on('enqueue', function(song){
           this.get('songQueue').enqueue(song);
         }, this);
 
+        this.get('library').on('ended', function(song) {
+          this.get('songQueue').dequeue();
+          console.log('song ended and dequeued');
+        }, this);
+
       },
 
       playNextSong: function(){
-        var nextSong = this.get('songQueue').shift();
+        var nextSong = this.get('songQueue').getNextSong();
         if (nextSong) {
           console.log('play next song');
           this.playSong(nextSong);
@@ -28,14 +34,14 @@ define(['backbone',
       },
 
       playSong: function(song) {
-          // remove listener from current song
-          if (this.get('currentSong')){
-            this.get('currentSong').off('ended', this.playNextSong, this);
-          }
           // set new current song
           this.set('currentSong', song);
-          // attach listener to current song
-          this.get('currentSong').on('ended', this.playNextSong, this);
+          console.log(this.get('songQueue').length, ' more songs including current one');
+      },
+
+      stopPlayingOnEmptyQueue: function() {
+        // only to be called on 'ended' events
+        this.playSong(null);
       }
 
     });
