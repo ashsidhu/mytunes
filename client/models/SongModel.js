@@ -19,6 +19,10 @@ define(['backbone', 'models/SongModel'], function (Backbone, SongModel) {
 
     dequeue: function() {
       this.trigger('dequeue', this);
+    },
+
+    stopFromQueue: function() {
+      this.trigger('stopFromQueue', this);
     }
 
   });

@@ -42,6 +42,10 @@ define(['backbone',
       },
 
       setSongInPlayer: function(model){
+        if (model.get('currentSong') === null) {
+          this.playerView.stopAndRemoveSong()
+          return;
+        }
         console.log('now playing - ', model.get('currentSong').get('title'))
         this.playerView.setSong(model.get('currentSong'));
       },

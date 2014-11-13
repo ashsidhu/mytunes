@@ -30,6 +30,9 @@ define(['backbone',
           this.get('songQueue').dequeue();
           console.log('song ended and dequeued');
         }, this);
+
+        this.get('library').on('stopFromQueue', this.stopPlayingOnEmptyQueue, this);
+
       },
 
       setQueueFromLocalStorage: function() {

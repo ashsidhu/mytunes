@@ -32,6 +32,12 @@ define(['backbone'], function (Backbone) {
     ended: function(e) {
       console.log('current song ended from view');
       this.model.ended();
+    },
+
+    stopAndRemoveSong: function() {
+      this.el.pause();
+      this.el.currentTime = 0;
+      this.el.currentSrc = '';
     }
 
   });

@@ -14,13 +14,12 @@ define(['backbone', 'collections/Songs', 'lsUtil'], function (Backbone, Songs, l
         _.each(song, this.enqueue, this);
         return;
       }
-      debugger;
       this.add(song);
       this.playFirst();
     },
 
     dequeue: function(){
-      this.shift();
+      this.stopLast().shift();
       this.playFirst();
     },
 
@@ -28,6 +27,14 @@ define(['backbone', 'collections/Songs', 'lsUtil'], function (Backbone, Songs, l
       if (this.first()) {
         this.first().play();
       }
+      return this;
+    },
+
+    stopLast: function() {
+      if (this.length === 1) {
+        this.first().stopFromQueue();
+      }
+      return this;
     },
 
     removeFromQueue: function(song){
