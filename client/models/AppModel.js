@@ -9,9 +9,14 @@ define(['backbone',
         this.set('currentSong', new SongModel());
         this.set('songQueue', new SongQueue());
         
-        params.library.on('play', function(song){
+        this.get('library').on('play', function(song){
           this.set('currentSong', song);
         }, this);
+
+        this.get('library').on('enqueue', function(song){
+          this.get('songQueue').enqueue(song);
+        }, this);
+
       }
 
     });

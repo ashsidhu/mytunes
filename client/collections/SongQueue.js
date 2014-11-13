@@ -4,6 +4,10 @@ define(['backbone', 'collections/Songs'], function (Backbone, Songs) {
   var SongQueue = Songs.extend({
 
     initialize: function(){
+    },
+
+    enqueue: function(song) {
+      this.add(song);
     }
 
   });
