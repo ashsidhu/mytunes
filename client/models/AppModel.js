@@ -7,16 +7,19 @@ define(['backbone',
     var AppModel = Backbone.Model.extend({
 
       initialize: function(params){
-        var queueData = ls.read('songQueue') || [];
-        console.log(queueData);
-        debugger;
+
         var currentSong = new SongModel();
-        var songQueue = new SongQueue(queueData);
+        var songQueue = new SongQueue();
 
         this.set('currentSong', currentSong); //set an empty song only for the first time
         this.set('songQueue', songQueue);
         
-        // library passed in params
+        this.bindEvents();
+        this.setQueueFromLocalStorage();
+      },
+
+      bindEvents: function() {
+
         this.get('library').on('play', this.playSong, this);
 
         this.get('library').on('enqueue', function(song){
@@ -27,13 +30,26 @@ define(['backbone',
           this.get('songQueue').dequeue();
           console.log('song ended and dequeued');
         }, this);
+      },
 
+      setQueueFromLocalStorage: function() {
+        var queueData = ls.read('songQueue') || [];
+        if (queueData.length) {
+          console.log('trying to add song queue from history', queueData);
+          var songModels = this.get('library').getSongsFromData(queueData);
+          console.log(songModels);
+          this.get('songQueue').enqueue(songModels);
+        }
+      },
+
+      isCurrentSongReady: function () {
+        return Boolean(this.get('currentSong').get('url'));
       },
 
       playSong: function(song) {
           // set new current song
           this.set('currentSong', song);
-          ls.write('currentSong', song.attributes);
+          // ls.write('currentSong', song.attributes);
           console.log(this.get('songQueue').length, ' more songs including current one');
       },
 

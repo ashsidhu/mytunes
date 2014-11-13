@@ -10,6 +10,11 @@ define(['backbone', 'collections/Songs', 'lsUtil'], function (Backbone, Songs, l
     },
 
     enqueue: function(song) {
+      if (Array.isArray(song) || song instanceof Backbone.Collection) {
+        _.each(song, this.enqueue, this);
+        return;
+      }
+      debugger;
       this.add(song);
       this.playFirst();
     },

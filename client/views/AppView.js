@@ -23,6 +23,10 @@ define(['backbone',
 
         // model is app model
         this.model.on('change:currentSong', this.setSongInPlayer, this);
+        // play current song if already set
+        if (this.model.isCurrentSongReady()) {
+          this.setSongInPlayer(this.model);
+        }
 
         this.model.get('songQueue').on('add remove', function () {
           this.songQueueView.render();
