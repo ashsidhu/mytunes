@@ -23,12 +23,17 @@ define(['backbone',
 
         // model is app model
         this.model.on('change:currentSong', this.setSongInPlayer, this);
+
+        this.model.get('songQueue').on('add remove', function () {
+          this.songQueueView.render();
+        }, this)
       },
 
       render: function(){
         return this.$el.html([
           this.playerView.$el,
-          this.libraryView.$el
+          this.libraryView.$el,
+          this.songQueueView.$el
         ]);
       },
 

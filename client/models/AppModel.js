@@ -23,16 +23,6 @@ define(['backbone',
 
       },
 
-      playNextSong: function(){
-        var nextSong = this.get('songQueue').getNextSong();
-        if (nextSong) {
-          console.log('play next song');
-          this.playSong(nextSong);
-        } else {
-          console.log('no more songs in queue');
-        }
-      },
-
       playSong: function(song) {
           // set new current song
           this.set('currentSong', song);

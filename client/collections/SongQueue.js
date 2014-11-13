@@ -9,15 +9,15 @@ define(['backbone', 'collections/Songs'], function (Backbone, Songs) {
 
     enqueue: function(song) {
       this.add(song);
-      this.playFirstIfFirst();
+      this.playFirst();
     },
 
     dequeue: function(){
       this.shift();
-      this.playFirstIfFirst();
+      this.playFirst();
     },
 
-    playFirstIfFirst: function() {
+    playFirst: function() {
       if (this.first()) {
         this.first().play();
       }
@@ -32,7 +32,7 @@ define(['backbone', 'collections/Songs'], function (Backbone, Songs) {
     },
 
     getNextSong: function() {
-      // used by view to play next song
+      // used by view to play next song after dequeueing the currently playing song
       return this.first();
     }
 
