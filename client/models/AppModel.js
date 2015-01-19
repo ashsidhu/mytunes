@@ -20,18 +20,18 @@ define(['backbone',
 
       bindEvents: function() {
 
-        this.get('library').on('play', this.playSong, this);
+        this.get('songQueue').on('play', this.playSong, this);
 
         this.get('library').on('enqueue', function(song){
           this.get('songQueue').enqueue(song);
         }, this);
 
-        this.get('library').on('ended', function(song) {
+        this.get('songQueue').on('ended', function(song) {
           this.get('songQueue').dequeue();
           console.log('song ended and dequeued');
         }, this);
 
-        this.get('library').on('stopFromQueue', this.stopPlayingOnEmptyQueue, this);
+        this.get('songQueue').on('stopFromQueue', this.stopPlayingOnEmptyQueue, this);
 
       },
 

@@ -1,3 +1,4 @@
+var start = Date.now();
 require.config({
   paths: {
     "jquery": ["bower_components/jquery/jquery.min"],
@@ -26,7 +27,7 @@ require([
   'views/AppView'], 
   
   function(jquery, _, Backbone, songData, Songs, AppModel, AppView){
-    console.log('init');
+    console.log(Date.now() - start);
 
     // set up model objects
     var library = new Songs(songData);
